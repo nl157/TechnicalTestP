@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoffeeSubscriptionManager.API\CoffeeSubscriptionManager.API.csproj" />
     <ProjectReference Include="..\CoffeeSubscriptionManager.Models\CoffeeSubscriptionManager.Models.csproj" />
   </ItemGroup>
 

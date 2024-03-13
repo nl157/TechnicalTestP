@@ -54,7 +54,7 @@ namespace CoffeeSubscriptionManager.Repository
             throw new NotImplementedException();
         }
 
-        public Task<Coffee> SelectAsync(Expression<Func<Coffee, bool>> predicate)
+        public Task<Coffee?> SelectAsync(Expression<Func<Coffee, bool>> predicate)
         {
             throw new NotImplementedException();
         }

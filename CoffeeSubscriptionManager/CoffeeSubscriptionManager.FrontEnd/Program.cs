@@ -1,7 +1,10 @@
+using CoffeeSubscriptionManager.FrontEnd.Properties;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection(ApiOptions.Section));
 
 var app = builder.Build();
 

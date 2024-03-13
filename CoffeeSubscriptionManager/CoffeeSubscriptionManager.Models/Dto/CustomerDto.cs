@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿
 
-namespace CoffeeSubscriptionManager.Models
+using System.ComponentModel.DataAnnotations;
+
+namespace CoffeeSubscriptionManager.Models.Requests
 {
-    public class Customer
+    public class CustomerDto : BaseRequest
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
+
         public required int Id { get; set; }
         public required string FirstName { get; set; }
         public required string Surname { get; set; }
-        [EmailAddress]
         public required string Email { get; set; }
         public required string FirstLineOfAddress { get; set; }
         public string? SecondLineOfAddress { get; set; }

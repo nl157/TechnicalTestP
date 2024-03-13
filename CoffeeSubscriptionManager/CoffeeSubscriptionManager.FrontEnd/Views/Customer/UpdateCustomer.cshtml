@@ -1,0 +1,74 @@
+﻿@model CoffeeSubscriptionManager.FrontEnd.Models.UpdateViewModel
+@{
+    ViewData["Title"] = "Update Customer";
+}
+
+<h1>Update Customer</h1>
+
+<div class="Update">
+    @using (@Html.BeginForm("UpdateCustomer", "Customer", FormMethod.Post))
+    {
+        <h4>Update Customer</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="UpdateCustomer">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group-update" hidden>
+                        <label asp-for="Customer.Id" class="control-label"></label>
+                        <input asp-for="Customer.Id" class="form-control" />
+                        <span asp-validation-for="Customer.Id" class="text-danger"></span>
+                    </div>
+                    <div class="form-group-update">
+                        <label asp-for="Customer.FirstName" class="control-label"></label>
+                        <input asp-for="Customer.FirstName" class="form-control" />
+                        <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group-update">
+                        <label asp-for="Customer.Surname" class="control-label"></label>
+                        <input asp-for="Customer.Surname" class="form-control" />
+                        <span asp-validation-for="Customer.Surname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group-update">
+                        <label asp-for="Customer.Email" class="control-label"></label>
+                        <input asp-for="Customer.Email" class="form-control" />
+                        <span asp-validation-for="Customer.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group-update">
+                        <label asp-for="Customer.FirstLineOfAddress" class="control-label"></label>
+                        <input asp-for="Customer.FirstLineOfAddress" class="form-control" />
+                        <span asp-validation-for="Customer.FirstLineOfAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group-update">
+                        <label asp-for="Customer.SecondLineOfAddress" class="control-label"></label>
+                        <input asp-for="Customer.SecondLineOfAddress" class="form-control" />
+                        <span asp-validation-for="Customer.SecondLineOfAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group-update">
+                        <label asp-for="Customer.City" class="control-label"></label>
+                        <input asp-for="Customer.City" class="form-control" />
+                        <span asp-validation-for="Customer.City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group-update">
+                        <label asp-for="Customer.Postcode" class="control-label"></label>
+                        <input asp-for="Customer.Postcode" class="form-control" />
+                        <span asp-validation-for="Customer.Postcode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group-update">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+<div>
+    <a asp-action="Customer">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

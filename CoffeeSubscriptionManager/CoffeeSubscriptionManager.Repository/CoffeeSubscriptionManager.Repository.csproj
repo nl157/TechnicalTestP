@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CoffeeSubscriptionManager.DAL\CoffeeSubscriptionManager.DAL.csproj" />
+    <ProjectReference Include="..\CoffeeSubscriptionManager.Models\CoffeeSubscriptionManager.Models.csproj" />
+  </ItemGroup>
+
 </Project>

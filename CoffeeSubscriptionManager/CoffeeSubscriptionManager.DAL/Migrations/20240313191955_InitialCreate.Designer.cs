@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeSubscriptionManager.DAL.Migrations
 {
     [DbContext(typeof(CoffeeSubscriptionContext))]
-    [Migration("20240313024135_InitialCreate")]
+    [Migration("20240313191955_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -40,34 +40,6 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Coffee");
-                });
-
-            modelBuilder.Entity("CoffeeSubscriptionManager.Models.CoffeeBatch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("BatchDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("BatchNumber")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CoffeeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoffeeId");
-
-                    b.ToTable("CoffeeBatch");
                 });
 
             modelBuilder.Entity("CoffeeSubscriptionManager.Models.Customer", b =>
@@ -111,34 +83,6 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                     b.ToTable("Customer");
                 });
 
-            modelBuilder.Entity("CoffeeSubscriptionManager.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsSent")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
-
-                    b.Property<DateTime?>("ScheduledSendDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("SubscriptionId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubscriptionId");
-
-                    b.ToTable("Order");
-                });
-
             modelBuilder.Entity("CoffeeSubscriptionManager.Models.Subscription", b =>
                 {
                     b.Property<int>("Id")
@@ -148,7 +92,7 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                     b.Property<double>("BaseOrderPrice")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("CoffeeBatchId")
+                    b.Property<int>("CoffeeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CustomerId")
@@ -173,40 +117,18 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CoffeeBatchId");
+                    b.HasIndex("CoffeeId");
 
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Subscription");
                 });
 
-            modelBuilder.Entity("CoffeeSubscriptionManager.Models.CoffeeBatch", b =>
+            modelBuilder.Entity("CoffeeSubscriptionManager.Models.Subscription", b =>
                 {
                     b.HasOne("CoffeeSubscriptionManager.Models.Coffee", "Coffee")
                         .WithMany()
                         .HasForeignKey("CoffeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Coffee");
-                });
-
-            modelBuilder.Entity("CoffeeSubscriptionManager.Models.Order", b =>
-                {
-                    b.HasOne("CoffeeSubscriptionManager.Models.Subscription", "Subscription")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subscription");
-                });
-
-            modelBuilder.Entity("CoffeeSubscriptionManager.Models.Subscription", b =>
-                {
-                    b.HasOne("CoffeeSubscriptionManager.Models.CoffeeBatch", "CoffeeBatch")
-                        .WithMany()
-                        .HasForeignKey("CoffeeBatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -216,7 +138,7 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CoffeeBatch");
+                    b.Navigation("Coffee");
 
                     b.Navigation("Customer");
                 });

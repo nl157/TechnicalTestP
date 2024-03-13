@@ -18,6 +18,7 @@ namespace CoffeeSubscriptionManager.Repository
         public async Task AddAsync(Customer sender)
         {
             await _coffeeSubscriptionContext.Customer.AddAsync(sender);
+            _coffeeSubscriptionContext.Save();
         }
 
         public IEnumerable<Customer> GetAll()
@@ -47,7 +48,8 @@ namespace CoffeeSubscriptionManager.Repository
 
             if (customer is not null)
             {
-                _coffeeSubscriptionContext.Customer.Remove(customer); 
+                _coffeeSubscriptionContext.Customer.Remove(customer);
+                _coffeeSubscriptionContext.Save();
                 return true;
             }
 
@@ -77,6 +79,7 @@ namespace CoffeeSubscriptionManager.Repository
         public void Update(Customer sender)
         {
             _coffeeSubscriptionContext.Customer.Entry(sender).State = EntityState.Modified;
+            _coffeeSubscriptionContext.Save();
         }
     }
 }

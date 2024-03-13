@@ -39,10 +39,11 @@ namespace CoffeeSubscriptionManager.Services
 
         public async Task<ServiceResult<IEnumerable<Customer>>> CreateCustomerAsync(Customer customer)
         {
+
+
             try
             {
                 await _customerRepository.AddAsync(customer);
-                _customerRepository.Save();
             }
             catch (Exception e)
             {
@@ -59,13 +60,12 @@ namespace CoffeeSubscriptionManager.Services
 
             if (isCustomerRemoved)
             {
-                _customerRepository.Save();
+              
                 return new ServiceResult<bool>(isCustomerRemoved);
             };
 
 
             return new ServiceResult<bool>(new Exception("Unable to Delete Customer"));
-
         }
 
         public ServiceResult<IEnumerable<Customer>> UpdateCustomer(Customer customer)
@@ -73,7 +73,6 @@ namespace CoffeeSubscriptionManager.Services
             try
             {
                 _customerRepository.Update(customer);
-                _customerRepository.Save();
             }
             catch (Exception e)
             {

@@ -18,7 +18,41 @@ namespace CoffeeSubscriptionManager.FrontEnd.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Customer()
+        {
+            return View();
+        }
+
+        public IActionResult Subscription()
+        {
+            return View();
+        }
+
+        public IActionResult Order()
+        {
+            return View();
+        }
+
+        public IActionResult Coffee()
+        {
+            return View();
+        }
+
+        public IActionResult CoffeeBatch()
+        {
+            return View();
+        }
+
+        public IActionResult Accessory()
+        {
+            return View();
+        }
+        public IActionResult GrindSize()
+        {
+            return View();
+        }
+
+        public IActionResult ContactPreference()
         {
             return View();
         }

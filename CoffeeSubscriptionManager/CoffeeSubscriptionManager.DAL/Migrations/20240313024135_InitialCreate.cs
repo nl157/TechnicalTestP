@@ -12,22 +12,7 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Accessories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Price = table.Column<double>(type: "REAL", nullable: false),
-                    StockCount = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Accessories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Coffees",
+                name: "Coffee",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -38,11 +23,11 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coffees", x => x.Id);
+                    table.PrimaryKey("PK_Coffee", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "Customer",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -58,11 +43,11 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.PrimaryKey("PK_Customer", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CoffeeBatches",
+                name: "CoffeeBatch",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -75,58 +60,17 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CoffeeBatches", x => x.Id);
+                    table.PrimaryKey("PK_CoffeeBatch", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CoffeeBatches_Coffees_CoffeeId",
+                        name: "FK_CoffeeBatch_Coffee_CoffeeId",
                         column: x => x.CoffeeId,
-                        principalTable: "Coffees",
+                        principalTable: "Coffee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContactPreferences",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    SMS = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Email = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Mail = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContactPreferences", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ContactPreferences_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GrindSizes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CoffeeBatchId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GrindSizes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GrindSizes_CoffeeBatches_CoffeeBatchId",
-                        column: x => x.CoffeeBatchId,
-                        principalTable: "CoffeeBatches",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Subscriptions",
+                name: "Subscription",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -134,7 +78,6 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                     CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
                     FrequencyInDays = table.Column<int>(type: "INTEGER", nullable: false),
                     CoffeeBatchId = table.Column<int>(type: "INTEGER", nullable: false),
-                    GrindSizeId = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderSize = table.Column<string>(type: "TEXT", nullable: false),
                     NextSendDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     BaseOrderPrice = table.Column<double>(type: "REAL", nullable: false),
@@ -143,29 +86,23 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subscriptions", x => x.Id);
+                    table.PrimaryKey("PK_Subscription", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subscriptions_CoffeeBatches_CoffeeBatchId",
+                        name: "FK_Subscription_CoffeeBatch_CoffeeBatchId",
                         column: x => x.CoffeeBatchId,
-                        principalTable: "CoffeeBatches",
+                        principalTable: "CoffeeBatch",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Subscriptions_Customers_CustomerId",
+                        name: "FK_Subscription_Customer_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Subscriptions_GrindSizes_GrindSizeId",
-                        column: x => x.GrindSizeId,
-                        principalTable: "GrindSizes",
+                        principalTable: "Customer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Order",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -173,93 +110,58 @@ namespace CoffeeSubscriptionManager.DAL.Migrations
                     SubscriptionId = table.Column<int>(type: "INTEGER", nullable: false),
                     ScheduledSendDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     IsSent = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AddedExtrasId = table.Column<int>(type: "INTEGER", nullable: true),
                     Price = table.Column<double>(type: "REAL", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Accessories_AddedExtrasId",
-                        column: x => x.AddedExtrasId,
-                        principalTable: "Accessories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Orders_Subscriptions_SubscriptionId",
+                        name: "FK_Order_Subscription_SubscriptionId",
                         column: x => x.SubscriptionId,
-                        principalTable: "Subscriptions",
+                        principalTable: "Subscription",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CoffeeBatches_CoffeeId",
-                table: "CoffeeBatches",
+                name: "IX_CoffeeBatch_CoffeeId",
+                table: "CoffeeBatch",
                 column: "CoffeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContactPreferences_CustomerId",
-                table: "ContactPreferences",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GrindSizes_CoffeeBatchId",
-                table: "GrindSizes",
-                column: "CoffeeBatchId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_AddedExtrasId",
-                table: "Orders",
-                column: "AddedExtrasId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_SubscriptionId",
-                table: "Orders",
+                name: "IX_Order_SubscriptionId",
+                table: "Order",
                 column: "SubscriptionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscriptions_CoffeeBatchId",
-                table: "Subscriptions",
+                name: "IX_Subscription_CoffeeBatchId",
+                table: "Subscription",
                 column: "CoffeeBatchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscriptions_CustomerId",
-                table: "Subscriptions",
+                name: "IX_Subscription_CustomerId",
+                table: "Subscription",
                 column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Subscriptions_GrindSizeId",
-                table: "Subscriptions",
-                column: "GrindSizeId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ContactPreferences");
+                name: "Order");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Subscription");
 
             migrationBuilder.DropTable(
-                name: "Accessories");
+                name: "CoffeeBatch");
 
             migrationBuilder.DropTable(
-                name: "Subscriptions");
+                name: "Customer");
 
             migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "GrindSizes");
-
-            migrationBuilder.DropTable(
-                name: "CoffeeBatches");
-
-            migrationBuilder.DropTable(
-                name: "Coffees");
+                name: "Coffee");
         }
     }
 }

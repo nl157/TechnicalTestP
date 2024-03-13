@@ -14,7 +14,7 @@ namespace CoffeeSubscriptionManager.Models
         public required string City { get; set; }
         public required string Postcode { get; set; }
         public List<Subscription>? Subscriptions { get; set; }
-        public required List<ContactPreference> ContactPreferences { get; set; }
+
         public DateTime? DeletedDate { get; set; }
     }
 }

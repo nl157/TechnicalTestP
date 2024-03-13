@@ -7,9 +7,7 @@
 
         public required int FrequencyInDays { get; set; }
 
-        public required CoffeeBatch CoffeeBatch { get; set; }
-
-        public required GrindSize GrindSize { get; set; }
+        public required Coffee Coffee { get; set; }
 
         public required string OrderSize { get; set; }
 

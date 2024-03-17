@@ -5,6 +5,7 @@ using CoffeeSubscriptionManager.Repository;
 using CoffeeSubscriptionManager.Repository.Interfaces;
 using CoffeeSubscriptionManager.Services;
 using CoffeeSubscriptionManager.Services.Interfaces;
+using CoffeeSubscriptionManager.Services.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICoffeeSubscriptionContext, CoffeeSubscriptionContext>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IGenericRepository<Customer>, CustomerRepository>();
+builder.Services.AddScoped<ICustomerValidator, CustomerValidator>();
 
 var app = builder.Build();
 
